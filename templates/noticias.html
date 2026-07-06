@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+   content="width=device-width, initial-scale=1.0">
+
+<title>Noticias - Sol Market</title>
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/animate.css') }}">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+body{
+
+    background:url("{{ url_for('static', filename='img/index3.jpg') }}");
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-attachment:fixed;
+
+    min-height:100vh;
+
+    padding-top:95px;
+
+    font-family:'Segoe UI',sans-serif;
+}
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100%;
+
+    background:rgba(0,0,0,.75);
+
+    z-index:-1;
+}
+
+/* NAVBAR */
+
+.custom-navbar{
+
+    background:rgba(15,32,39,.96)!important;
+
+    border:none;
+
+    padding:10px 0;
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:0 5px 25px rgba(0,0,0,.35);
+}
+
+.logo-container{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    text-decoration:none!important;
+}
+
+.logo-img{
+
+    width:65px;
+
+    height:65px;
+}
+
+.logo-text{
+
+    color:#2BB673;
+
+    font-size:28px;
+
+    font-weight:bold;
+}
+
+.custom-menu{
+
+    margin-top:10px;
+}
+
+.custom-menu li a{
+
+    color:white!important;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    padding:12px 18px!important;
+
+    border-radius:12px;
+
+    transition:.3s;
+}
+
+.custom-menu li a:hover,
+.custom-menu li a.active{
+
+    background:linear-gradient(
+        90deg,
+        #2BB673,
+        #FFD24C
+    );
+}
+
+/* TITULO */
+
+.news-header{
+
+    text-align:center;
+
+    margin-bottom:40px;
+}
+
+.news-header h1{
+
+    color:white;
+
+    font-size:42px;
+
+    font-weight:bold;
+}
+
+.news-header p{
+
+    color:#ddd;
+
+    font-size:18px;
+}
+
+/* TARJETAS */
+
+.stat-card{
+
+    background:rgba(255,255,255,.10);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:20px;
+
+    padding:25px;
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+    color:white;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.3);
+}
+
+.stat-card i{
+
+    font-size:45px;
+
+    color:#FFD24C;
+
+    margin-bottom:15px;
+}
+
+.stat-card h2{
+
+    font-weight:bold;
+}
+
+.section-title{
+
+    color:#FFD24C;
+
+    margin:40px 0 25px;
+
+    text-align:center;
+
+    font-weight:bold;
+}
+
+.news-card{
+
+    background:rgba(255,255,255,.10);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    color:white;
+
+    margin-bottom:25px;
+}
+
+.news-card h4{
+
+    color:#2BB673;
+
+    font-weight:bold;
+}
+
+.highlight{
+
+    border-left:5px solid #FFD24C;
+}
+
+.table{
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+}
+
+.table thead{
+
+    background:linear-gradient(
+        90deg,
+        #2BB673,
+        #FFD24C
+    );
+}
+
+canvas{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:20px;
+
+    margin-bottom:30px;
+}
+
+.news-card a.btn{
+
+    margin-top:10px;
+
+    border:none;
+
+    background:linear-gradient(
+        90deg,
+        #2BB673,
+        #FFD24C
+    );
+
+    color:white;
+
+    font-weight:bold;
+}
+    
+        footer{
+
+            background: rgba(0,0,0,0.90);
+
+            color: white;
+
+            padding: 50px 0 20px;
+
+            margin-top: 60px;
+        }
+
+        footer h4{
+
+            color: white;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+        footer p,
+        footer li{
+
+            color: #d6d6d6;
+        }
+
+        footer ul{
+
+            padding-left: 0;
+        }
+
+        footer li{
+
+            list-style: none;
+
+            margin-bottom: 10px;
+        }
+
+        .social-network li{
+
+            display: inline-block;
+
+            margin-right: 20px;
+        }
+
+        .social-network a{
+
+            color: white;
+
+            font-size: 28px;
+
+            transition: 0.3s;
+        }
+
+        .social-network a:hover{
+
+            color: #00bcd4;
+        }
+
+
+        @media(max-width:768px){
+
+            .logo-text{
+
+                font-size: 22px;
+            }
+
+            .logo-img{
+
+                width: 55px;
+
+                height: 55px;
+            }
+
+            .custom-menu{
+
+                margin-top: 20px;
+
+                text-align: center;
+            }
+
+            .custom-menu li{
+
+                margin: 10px 0;
+            }
+
+            .register-container{
+
+                margin: 40px 20px;
+
+                padding: 30px;
+            }
+
+            .register-title{
+
+                font-size: 26px;
+            }
+        }
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<nav class="navbar navbar-default navbar-fixed-top custom-navbar">
+
+<div class="container">
+
+<div class="navbar-header">
+
+<a class="navbar-brand logo-container"
+href="{{ url_for('index') }}">
+
+<img src="{{ url_for('static', filename='img/logo222.png') }}"
+  class="logo-img">
+
+<span class="logo-text">
+Sol Market
+</span>
+
+</a>
+
+</div>
+
+<div class="collapse navbar-collapse">
+
+  <ul class="nav navbar-nav navbar-right custom-menu">
+
+                    <li>
+                        <a href="{{ url_for('index') }}" class="active">
+                            <i class="fa fa-home"></i>
+                            Inicio
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ url_for('noticias') }}" >
+                            <i class="fa fa-bullhorn"></i>
+                            Noticias Sol M
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ url_for('registro_form') }}">
+                           <i class="fa fa-edit"></i>
+                            Regístrate
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ url_for('login') }}">
+                            <i class="fa fa-sign-in"></i>
+                            Login
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ url_for('chatbox') }}">
+                            <i class="fa fa-comments"></i>
+                            Chat IA
+                        </a>
+                    </li>
+
+                </ul>
+
+</div>
+
+</div>
+
+</nav>
+
+</header>
+
+<div class="container">
+
+<div class="news-header wow fadeInDown">
+
+<h1>
+📊 Noticias del Mercado Energético
+</h1>
+
+<p>
+Indicadores en tiempo real de Sol Market
+</p>
+
+</div>
+
+<!-- ====================================== -->
+
+<!-- ESTADISTICAS GENERALES -->
+
+<!-- ====================================== -->
+<div class="row">
+
+    <div class="col-md-10 col-md-offset-1">
+
+        <div class="row">
+
+            <div class="col-md-4">
+
+                <div class="stat-card wow fadeInUp">
+
+                    <i class="fa fa-users"></i>
+
+                    <h2>{{ total_usuarios }}</h2>
+
+                    <p>
+                        Usuarios Registrados
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="stat-card wow fadeInUp">
+
+                    <i class="fa fa-exchange"></i>
+
+                    <h2>{{ total_ventas }}</h2>
+
+                    <p>
+                        Transacciones
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="stat-card wow fadeInUp">
+
+                    <i class="fa fa-bolt"></i>
+
+                    <h2>{{ energia_total }}</h2>
+
+                    <p>
+                        kWh Comercializados
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<!-- ====================================== -->
+
+<!-- MEJORES COMPRADORES -->
+
+<!-- ====================================== -->
+
+<h2 class="section-title">
+🏆 Mejores Compradores
+</h2>
+
+<div class="row">
+
+{% for comprador in mejores_compradores %}
+
+<div class="col-md-4">
+
+<div class="news-card wow fadeInUp">
+
+<h4>
+
+<i class="fa fa-user"></i>
+
+{{ comprador.nombre_comprador }}
+
+</h4>
+
+<hr>
+
+<p>
+
+<strong>Energía Comprada:</strong>
+
+{{ comprador.energia_total }} kWh
+
+</p>
+
+<p>
+
+<strong>Total Invertido:</strong>
+
+$ {{ "{:,.0f}".format(comprador.total).replace(",", ".") }}
+
+</p>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<!-- ====================================== -->
+
+<!-- MEJORES VENDEDORES -->
+
+<!-- ====================================== -->
+
+<h2 class="section-title">
+🌞 Mejores Vendedores
+</h2>
+
+<div class="row">
+
+{% for vendedor in mejores_vendedores %}
+
+<div class="col-md-4">
+
+<div class="news-card wow fadeInUp">
+
+<h4>
+
+<i class="fa fa-line-chart"></i>
+
+{{ vendedor.nombre_vendedor }}
+
+</h4>
+
+<hr>
+
+<p>
+
+<strong>Energía Vendida:</strong>
+
+{{ vendedor.energia_total }} kWh
+
+</p>
+
+<p>
+
+<strong>Ingresos Generados:</strong>
+
+$ {{ "{:,.0f}".format(vendedor.total).replace(",", ".") }}
+</p>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<!-- ====================================== -->
+
+<!-- TRANSACCIONES DESTACADAS -->
+
+<!-- ====================================== -->
+
+<h2 class="section-title">
+💰 Transacciones Destacadas
+</h2>
+
+<div class="row">
+
+<div class="col-md-6">
+
+<div class="news-card highlight wow fadeInLeft">
+
+<h3 style="color:#2BB673;">
+
+<i class="fa fa-arrow-up"></i>
+
+Transacción Más Alta
+
+</h3>
+
+<hr>
+
+<h2>
+
+<h2>
+$ {{ "{:,.0f}".format(transaccion_alta.preciototal).replace(",", ".") }}
+</h2>
+
+</h2>
+
+<p>
+
+<strong>Comprador:</strong>
+
+{{ transaccion_alta.nombre_comprador }}
+
+</p>
+
+<p>
+
+<strong>Vendedor:</strong>
+
+{{ transaccion_alta.nombre_vendedor }}
+
+</p>
+
+<p>
+
+<strong>Energía:</strong>
+
+{{ transaccion_alta.energia_vendida }} kWh
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="news-card highlight wow fadeInRight">
+
+<h3 style="color:#FFD24C;">
+
+<i class="fa fa-arrow-down"></i>
+
+Transacción Más Baja
+
+</h3>
+
+<hr>
+
+<h2>
+
+${{ transaccion_baja.preciototal }}
+
+</h2>
+
+<p>
+
+<strong>Comprador:</strong>
+
+{{ transaccion_baja.nombre_comprador }}
+
+</p>
+
+<p>
+
+<strong>Vendedor:</strong>
+
+{{ transaccion_baja.nombre_vendedor }}
+
+</p>
+
+<p>
+
+<strong>Energía:</strong>
+
+{{ transaccion_baja.energia_vendida }} kWh
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+<!-- ====================================== -->
+
+<!-- ULTIMAS OFERTAS -->
+
+<!-- ====================================== -->
+
+<h2 class="section-title">
+⚡ Últimas Ofertas de Energía
+</h2>
+
+<div class="table-responsive">
+
+<table class="table table-bordered table-hover">
+
+<thead>
+
+<tr>
+
+<th>Vendedor</th>
+<th>Energía Disponible</th>
+<th>Precio kWh</th>
+<th>Valor Total</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for oferta in ultimas_ofertas %}
+
+<tr>
+
+<td>
+{{ oferta.nombre_vendedor }}
+</td>
+
+<td>
+{{ oferta.cantidad_horas }} kWh
+</td>
+
+<td>
+${{ oferta.precioxhora }}
+</td>
+
+<td>
+${{ oferta.preciototal }}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+
+</div>
+
+</div>
+
+
+<!-- ====================================== -->
+<!-- NOTICIAS CREG -->
+<!-- ====================================== -->
+
+<div class="row">
+
+    <div class="col-md-10 col-md-offset-1">
+
+
+<h2 class="section-title">
+📰 Ultimos Documentos Publicados CREG
+</h2>
+
+<h3 style="color:white;text-align:center;">
+Noticias encontradas: {{ noticias_scraping|length }}
+</h3>
+
+<div class="row">
+
+{% for noticia in noticias_scraping %}
+
+<div class="col-md-6">
+
+    <div class="news-card wow fadeInUp">
+
+        <h4>
+            <i class="fa fa-newspaper-o"></i>
+            {{ noticia.titulo }}
+        </h4>
+
+        <hr>
+
+        <p>
+            Fuente:
+            <strong>{{ noticia.fuente }}</strong>
+        </p>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+
+<!-- ====================================== -->
+<!-- SECTORES REGULADOS POR LA CREG -->
+<!-- ====================================== -->
+
+<h2 class="section-title">
+    ⚙ Sectores Regulados por la CREG
+</h2>
+
+<div class="row">
+
+    <!-- Energía Eléctrica -->
+
+    <div class="col-md-3">
+
+        <div class="news-card wow fadeInUp text-center">
+
+            <i class="fa fa-bolt"
+               style="font-size:55px;color:#FFD24C;"></i>
+
+            <h4 style="margin-top:20px;">
+                Energía Eléctrica
+            </h4>
+
+            <p>
+                Información sobre regulación,
+                tarifas, mercado eléctrico y
+                normativa vigente.
+            </p>
+
+            <a href="https://www.creg.gov.co/energia-electrica"
+               target="_blank"
+               class="btn btn-success">
+
+                <i class="fa fa-external-link"></i>
+
+                Ir al sitio
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Gas Natural -->
+
+    <div class="col-md-3">
+
+        <div class="news-card wow fadeInUp text-center">
+
+            <i class="fa fa-fire"
+               style="font-size:55px;color:#ff9800;"></i>
+
+            <h4 style="margin-top:20px;">
+                Gas Natural
+            </h4>
+
+            <p>
+                Consulta regulación,
+                comercialización,
+                transporte y distribución.
+            </p>
+
+            <a href="https://www.creg.gov.co/gas-natural"
+               target="_blank"
+               class="btn btn-success">
+
+                <i class="fa fa-external-link"></i>
+
+                Ir al sitio
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- GLP -->
+
+    <div class="col-md-3">
+
+        <div class="news-card wow fadeInUp text-center">
+
+            <i class="fa fa-tint"
+               style="font-size:55px;color:#00BCD4;"></i>
+
+            <h4 style="margin-top:20px;">
+                Gas Licuado del Petróleo
+            </h4>
+
+            <p>
+                Información regulatoria sobre
+                GLP, distribución,
+                almacenamiento y tarifas.
+            </p>
+
+            <a href="https://www.creg.gov.co/glp"
+               target="_blank"
+               class="btn btn-success">
+
+                <i class="fa fa-external-link"></i>
+
+                Ir al sitio
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Combustibles -->
+
+    <div class="col-md-3">
+
+        <div class="news-card wow fadeInUp text-center">
+
+            <i class="fa fa-truck"
+               style="font-size:55px;color:#2BB673;"></i>
+
+            <h4 style="margin-top:20px;">
+                Combustibles Líquidos
+            </h4>
+
+            <p>
+                Regulación relacionada con
+                distribución, transporte y
+                comercialización de combustibles.
+            </p>
+
+            <a href="https://www.creg.gov.co/combustibles-liquidos"
+               target="_blank"
+               class="btn btn-success">
+
+                <i class="fa fa-external-link"></i>
+
+                Ir al sitio
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ====================================== -->
+<!-- MINISTERIO DE MINAS Y ENERGÍA -->
+<!-- ====================================== -->
+
+<h2 class="section-title">
+    🏛 Ministerio de Minas y Energía
+</h2>
+
+<h4 style="text-align:center;color:white;margin-bottom:35px;">
+    Nuestro Sector
+</h4>
+
+<div class="row">
+
+    <!-- Hidrocarburos -->
+
+    <div class="col-md-3">
+
+        <div class="news-card text-center wow fadeInUp">
+
+            <i class="fa fa-tint"
+               style="font-size:55px;color:#00BCD4;"></i>
+
+            <h4>Hidrocarburos</h4>
+
+            <p>
+                Información sobre exploración,
+                producción y regulación del sector
+                de hidrocarburos en Colombia.
+            </p>
+
+            <a href="https://www.minenergia.gov.co/es/misional/hidrocarburos/"
+               target="_blank"
+               class="btn btn-success">
+
+                <i class="fa fa-external-link"></i>
+                Ir al sitio
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Energía -->
+
+    <div class="col-md-3">
+
+        <div class="news-card text-center wow fadeInUp">
+
+            <i class="fa fa-bolt"
+               style="font-size:55px;color:#FFD24C;"></i>
+
+            <h4>Energía</h4>
+
+            <p>
+                Consulta información del sector
+                eléctrico, regulación y transición
+                energética.
+            </p>
+
+            <a href="https://www.minenergia.gov.co/es/misional/energia/"
+               target="_blank"
+               class="btn btn-success">
+
+                <i class="fa fa-external-link"></i>
+                Ir al sitio
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Minería -->
+
+    <div class="col-md-3">
+
+        <div class="news-card text-center wow fadeInUp">
+
+            <i class="fa fa-industry"
+               style="font-size:55px;color:#ff9800;"></i>
+
+            <h4>Minería</h4>
+
+            <p>
+                Información sobre minería,
+                normatividad y desarrollo
+                sostenible del sector.
+            </p>
+
+            <a href="https://www.minenergia.gov.co/es/misional/mineria/"
+               target="_blank"
+               class="btn btn-success">
+
+                <i class="fa fa-external-link"></i>
+                Ir al sitio
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Energías Renovables -->
+
+    <div class="col-md-3">
+
+        <div class="news-card text-center wow fadeInUp">
+
+            <i class="fa fa-leaf"
+               style="font-size:55px;color:#2BB673;"></i>
+
+            <h4>Energías Renovables</h4>
+
+            <p>
+                Información sobre fuentes no
+                convencionales de energía y
+                transición energética.
+            </p>
+
+            <a href="https://www.minenergia.gov.co/"
+               target="_blank"
+               class="btn btn-success">
+
+                <i class="fa fa-external-link"></i>
+                Ir al sitio
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ====================================== -->
+<!-- UPME -->
+<!-- ====================================== -->
+
+<h2 class="section-title">
+    ⚡ UPME
+</h2>
+
+<h4 style="text-align:center;color:white;margin-bottom:35px;">
+    Principales Enlaces de Interés
+</h4>
+
+<div class="row">
+
+    <div class="col-md-3">
+
+        <div class="news-card text-center">
+
+            <i class="fa fa-file-text-o" style="font-size:55px;color:#FFD24C;"></i>
+
+            <h4>Trámites y Servicios</h4>
+
+            <p>
+                Consulta los servicios y trámites
+                ofrecidos por la UPME.
+            </p>
+
+            <a href="https://www.upme.gov.co/"
+               target="_blank"
+               class="btn btn-success">
+
+                Ir al sitio
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="news-card text-center">
+
+            <i class="fa fa-car" style="font-size:55px;color:#2BB673;"></i>
+
+            <h4>Vehículos Eléctricos</h4>
+
+            <p>
+                Incentivos para vehículos
+                eléctricos e híbridos.
+            </p>
+
+            <a href="https://www.upme.gov.co/"
+               target="_blank"
+               class="btn btn-success">
+
+                Ir al sitio
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="news-card text-center">
+
+            <i class="fa fa-line-chart" style="font-size:55px;color:#00BCD4;"></i>
+
+            <h4>Planeación Energética</h4>
+
+            <p>
+                Estudios y proyecciones del
+                sistema energético colombiano.
+            </p>
+
+            <a href="https://www.upme.gov.co/"
+               target="_blank"
+               class="btn btn-success">
+
+                Ir al sitio
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="news-card text-center">
+
+            <i class="fa fa-money" style="font-size:55px;color:#ff9800;"></i>
+
+            <h4>Incentivos Tributarios</h4>
+
+            <p>
+                Beneficios tributarios para
+                proyectos de energías renovables.
+            </p>
+
+            <a href="https://www.upme.gov.co/"
+               target="_blank"
+               class="btn btn-success">
+
+                Ir al sitio
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ====================================== -->
+<!-- IPSE -->
+<!-- ====================================== -->
+
+<h2 class="section-title">
+    🌎 IPSE
+</h2>
+
+<h4 style="text-align:center;color:white;margin-bottom:35px;">
+    Servicios Institucionales
+</h4>
+
+<div class="row">
+
+    <div class="col-md-2">
+
+        <div class="news-card text-center">
+
+            <i class="fa fa-globe" style="font-size:50px;color:#FFD24C;"></i>
+
+            <h4>CNM</h4>
+
+            <p>Consulta información del CNM.</p>
+
+            <a href="https://www.ipse.gov.co/"
+               target="_blank"
+               class="btn btn-success">
+
+                Ir
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-2">
+
+        <div class="news-card text-center">
+
+            <i class="fa fa-database" style="font-size:50px;color:#2BB673;"></i>
+
+            <h4>SIGIPSE</h4>
+
+            <p>Sistema de información del IPSE.</p>
+
+            <a href="https://www.ipse.gov.co/"
+               target="_blank"
+               class="btn btn-success">
+
+                Ir
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="news-card text-center">
+
+            <i class="fa fa-laptop" style="font-size:50px;color:#00BCD4;"></i>
+
+            <h4>Sede Electrónica</h4>
+
+            <p>Accede a los servicios virtuales.</p>
+
+            <a href="https://www.ipse.gov.co/"
+               target="_blank"
+               class="btn btn-success">
+
+                Ir
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+
+        <div class="news-card text-center">
+
+            <i class="fa fa-users" style="font-size:50px;color:#ff9800;"></i>
+
+            <h4>Caracterización ZNI</h4>
+
+            <p>
+                Sistema de Caracterización de
+                Usuarios para las ZNI.
+            </p>
+
+            <a href="https://www.ipse.gov.co/"
+               target="_blank"
+               class="btn btn-success">
+
+                Ir
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-2">
+
+        <div class="news-card text-center">
+
+            <i class="fa fa-envelope-open" style="font-size:50px;color:#9C27B0;"></i>
+
+            <h4>PQRSD</h4>
+
+            <p>Peticiones, Quejas y Reclamos.</p>
+
+            <a href="https://www.ipse.gov.co/"
+               target="_blank"
+               class="btn btn-success">
+
+                Ir
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<!-- ====================================== -->
+
+<footer>
+
+    
+ <div class="container">
+
+            <div class="row">
+
+                <!-- SOBRE NOSOTROS -->
+                <div class="col-md-4 wow fadeInDown">
+
+                    <h4>Sobre Nosotros</h4>
+
+                    <p>
+                        Sol Market es un software que facilita
+                        la compra y venta de energía solar.
+                    </p>
+
+                    <ul>
+
+                        <li>
+                            <i class="fa fa-home"></i>
+                            Medellín, Colombia
+                        </li>
+
+                        <li>
+                            <i class="fa fa-phone"></i>
+                            +57 4488123
+                        </li>
+
+                        <li>
+                            <i class="fa fa-envelope"></i>
+                            solmarketdea@gmail.com
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <!-- WHATSAPP -->
+                <div class="col-md-4 wow fadeInDown">
+
+                    <h4>Resolvemos tus dudas</h4>
+
+                    <p>
+                        ¿Tienes alguna duda?
+                        Contáctanos directamente.
+                    </p>
+
+                    <a class="btn btn-success"
+                       target="_blank"
+                       href="https://wa.me/573012374215">
+
+                        <i class="fa fa-whatsapp"></i>
+                        Chatea con nosotros
+
+                    </a>
+
+                </div>
+
+                <!-- REDES -->
+                <div class="col-md-4 wow fadeInDown">
+
+                    <h4>Redes Sociales</h4>
+
+                    <ul class="social-network">
+
+                        <li>
+                            <a target="_blank"
+                               href="https://facebook.com">
+
+                                <i class="fa fa-facebook"></i>
+
+                            </a>
+                        </li>
+
+                        <li>
+                            <a target="_blank"
+                               href="https://instagram.com">
+
+                                <i class="fa fa-instagram"></i>
+
+                            </a>
+                        </li>
+
+                        <li>
+                            <a target="_blank"
+                               href="https://youtube.com">
+
+                                <i class="fa fa-youtube-play"></i>
+
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <!-- COPYRIGHT -->
+
+            <div class="text-center">
+
+                &copy; 2026 Sol Market.
+                Todos los derechos reservados.
+
+            </div>
+
+        </div>
+
+
+
+    
+</footer>
+
+<!-- ====================================== -->
+
+<!-- SCRIPTS -->
+
+<!-- ====================================== -->
+
+<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/wow.min.js') }}"></script>
+
+<script>
+
+new WOW().init();
+
+</script>

@@ -1,0 +1,264 @@
+[
+  {
+    "question": "¿Qué es una comunidad energética?",
+    "answer": "Una comunidad energética es un grupo de personas, empresas o instituciones que se organizan para producir, consumir y gestionar localmente energía renovable, compartiendo beneficios y decisiones."
+  },
+  {
+    "question": "¿Cómo puedo instalar paneles solares en mi casa?",
+    "answer": "Para instalar paneles solares necesitas evaluar tu consumo, la radiación solar, el espacio en techo y contactar a un instalador certificado. También revisa incentivos y requisitos locales."
+  },
+  {
+    "question": "¿Cómo vender la energía que produzco con paneles solares?",
+    "answer": "En Colombia puedes vender excedentes mediante esquemas de medición neta, comercialización directa o acuerdos con comercializadoras. Requiere medidor bidireccional y cumplir requisitos regulatorios."
+  },
+  {
+    "question": "¿Qué incentivos hay para energía solar en Colombia?",
+    "answer": "Existen incentivos fiscales, tarifas de energía para proyectos rurales y programas regionales. Además, algunos municipios ofrecen beneficios y subsidios; verifica programas nacionales y locales."
+  },
+  {
+    "question": "¿Qué tipos de paneles solares existen?",
+    "answer": "Los principales son monocristalinos, policristalinos y de película delgada. Los monocristalinos suelen ser más eficientes; la elección depende de presupuesto y espacio."
+  },
+  {
+    "question": "¿Cuánto dura un sistema solar fotovoltaico?",
+    "answer": "Los paneles tienen garantía típica de 20 a 25 años y pueden seguir funcionando más tiempo con menor eficiencia. Inversores y baterías tienen ciclos de vida menores y requieren mantenimiento."
+  },
+  {
+    "question": "¿Necesito baterías para tener energía solar?",
+    "answer": "No siempre. Las baterías permiten almacenar excedentes y dar continuidad en cortes. Para autoconsumo básico no son obligatorias; su necesidad depende del consumo y respaldo deseado."
+  },
+  {
+    "question": "¿Qué mantenimiento requiere un sistema solar?",
+    "answer": "El mantenimiento básico incluye limpieza periódica de paneles, revisión de conexiones, verificación del inversor y control de sombras. Un mantenimiento anual suele ser suficiente."
+  },
+  {
+    "question": "¿Qué documentación necesito para un proyecto de energía comunitaria?",
+    "answer": "Se requieren estudios de factibilidad, permisos municipales, contratos de operación, acuerdos entre miembros y registros ante autoridades energéticas."
+  },
+  {
+    "question": "¿Cuánto cuesta instalar paneles solares?",
+    "answer": "El costo varía según el tamaño del sistema, calidad de componentes e instalación. Generalmente se calcula por kilovatio pico (kWp)."
+  },
+  {
+    "question": "¿Qué es Sol Market?",
+    "answer": "Sol Market es una plataforma inteligente enfocada en la compra y venta de energía solar entre usuarios y comunidades energéticas en Colombia."
+  },
+  {
+    "question": "¿Cómo funciona Sol Market?",
+    "answer": "La plataforma permite que usuarios vendedores publiquen excedentes de energía solar y que compradores puedan adquirir esa energía de manera rápida y segura."
+  },
+  {
+    "question": "¿Qué puedo hacer en Sol Market?",
+    "answer": "Puedes registrarte, comprar energía, vender excedentes solares, gestionar ofertas energéticas y consultar información sobre energía renovable."
+  },
+  {
+    "question": "¿Quiénes pueden usar Sol Market?",
+    "answer": "La plataforma está diseñada para compradores, vendedores y usuarios interesados en comunidades energéticas sostenibles."
+  },
+  {
+    "question": "¿Cómo me registro en la plataforma?",
+    "answer": "Debes ingresar a la sección de registro, completar tus datos personales y seleccionar el tipo de usuario que deseas utilizar."
+  },
+  {
+    "question": "¿Qué tipos de usuarios existen?",
+    "answer": "Existen usuarios compradores, vendedores y comprador-vendedor, dependiendo de cómo quieras participar en la plataforma."
+  },
+  {
+    "question": "¿Cómo publicar una oferta de energía?",
+    "answer": "Después de iniciar sesión como vendedor, puedes ingresar al panel de ventas y publicar la cantidad de energía disponible junto con su precio."
+  },
+  {
+    "question": "¿Cómo comprar energía solar?",
+    "answer": "Debes iniciar sesión como comprador, ingresar a la sección de reservas y seleccionar la oferta energética que deseas adquirir."
+  },
+  {
+    "question": "¿Qué pasa después de comprar energía?",
+    "answer": "La compra queda registrada en la base de datos y la cantidad de energía disponible del vendedor se actualiza automáticamente."
+  },
+  {
+    "question": "¿Cómo funciona el chat inteligente?",
+    "answer": "El chat utiliza un sistema de preguntas y respuestas entrenado con información sobre energía solar, comunidades energéticas y funcionamiento de Sol Market."
+  },
+  {
+    "question": "¿El chat usa inteligencia artificial?",
+    "answer": "Sí. El chatbot utiliza coincidencia inteligente de similitud para encontrar respuestas relacionadas con las preguntas del usuario."
+  },
+  {
+    "question": "¿Qué tecnologías utiliza Sol Market?",
+    "answer": "La plataforma fue desarrollada utilizando Python, Flask, SQLite, HTML, CSS, JavaScript y Bootstrap."
+  },
+  {
+    "question": "¿La plataforma guarda las compras realizadas?",
+    "answer": "Sí. Todas las compras quedan registradas en el sistema para control administrativo y seguimiento de transacciones."
+  },
+  {
+    "question": "¿Qué hace el administrador?",
+    "answer": "El administrador puede visualizar usuarios registrados, revisar ventas realizadas y gestionar información general del sistema."
+  },
+  {
+    "question": "¿Por qué usar energía solar?",
+    "answer": "La energía solar ayuda a reducir costos eléctricos, disminuye el impacto ambiental y aprovecha una fuente renovable e ilimitada."
+  },
+  {
+    "question": "¿Qué ventajas tiene Sol Market?",
+    "answer": "Facilita el intercambio de energía limpia, promueve sostenibilidad y permite gestionar compras y ventas desde una sola plataforma."
+  },
+  {
+    "question": "¿La plataforma funciona en Colombia?",
+    "answer": "Sí. Sol Market está orientada al mercado colombiano y al crecimiento de comunidades energéticas locales."
+  },
+  {
+    "question": "¿Cómo puedo iniciar sesión?",
+    "answer": "Debes ingresar tu número de documento y contraseña en la sección de login."
+  },
+  {
+    "question": "¿Qué sucede si cierro sesión?",
+    "answer": "La sesión del usuario se elimina y deberás volver a iniciar sesión para acceder a funciones privadas."
+  },
+  {
+    "question": "¿Qué es la energía renovable?",
+    "answer": "Es la energía obtenida de fuentes naturales que se regeneran constantemente, como el sol, el viento o el agua."
+  },
+  {
+    "question": "¿Qué son los paneles solares?",
+    "answer": "Son dispositivos que convierten la luz solar en energía eléctrica mediante celdas fotovoltaicas."
+  },
+  {
+    "question": "¿Cómo ayuda Sol Market al medio ambiente?",
+    "answer": "Promueve el uso de energía limpia y reduce la dependencia de combustibles fósiles."
+  },
+  {
+    "question": "¿Puedo vender excedentes de energía?",
+    "answer": "Sí. Los usuarios vendedores pueden publicar la energía sobrante generada por sus sistemas solares."
+  },
+  {
+    "question": "¿Qué información necesito para vender energía?",
+    "answer": "Debes indicar la cantidad de energía disponible y el precio por hora o unidad energética."
+  },
+  {
+    "question": "¿Qué es el Ministerio de Minas y Energía en Colombia?",
+    "answer": "Es la entidad encargada de formular, adoptar y coordinar las políticas del sector minero-energético del país, incluyendo energía eléctrica, hidrocarburos y energías renovables."
+  },
+  {
+    "question": "¿Cuál es el objetivo principal del sector energético en Colombia?",
+    "answer": "Garantizar el suministro eficiente, confiable y sostenible de energía para todos los usuarios del país."
+  },
+  {
+    "question": "¿Qué son las energías renovables según MinMinas?",
+    "answer": "Son fuentes de energía que se obtienen de recursos naturales que se regeneran, como la solar, eólica, hidráulica y biomasa."
+  },
+  {
+    "question": "¿Qué incentivos existen para la energía solar en Colombia?",
+    "answer": "Existen beneficios tributarios, deducciones de renta, exención de IVA y aranceles para equipos de generación solar."
+  },
+  {
+    "question": "¿Qué es la CREG?",
+    "answer": "Es la entidad encargada de regular los servicios públicos de energía eléctrica y gas combustible en Colombia."
+  },
+  {
+    "question": "¿Qué hace la CREG en el mercado de energía?",
+    "answer": "Define tarifas, regula la competencia y garantiza condiciones eficientes para la prestación del servicio."
+  },
+  {
+    "question": "¿Cómo se define el precio de la energía eléctrica?",
+    "answer": "A través de mecanismos de mercado mayorista donde se equilibran oferta y demanda, bajo regulación de la CREG."
+  },
+  {
+    "question": "¿Qué es XM en el sistema energético colombiano?",
+    "answer": "Es el operador del Sistema Interconectado Nacional y administra el mercado mayorista de energía."
+  },
+  {
+    "question": "¿Qué función cumple XM?",
+    "answer": "Coordina la operación del sistema eléctrico, garantiza el balance entre generación y demanda y administra el mercado de energía."
+  },
+  {
+    "question": "¿Qué es el despacho de energía?",
+    "answer": "Es el proceso mediante el cual se determina qué plantas generadoras producen electricidad en cada momento."
+  },
+  {
+    "question": "¿Qué información publica XM?",
+    "answer": "Publica datos de demanda, generación, precios de bolsa de energía y operación del sistema eléctrico."
+  },
+  {
+    "question": "¿Qué es la UPME?",
+    "answer": "Es la Unidad de Planeación Minero Energética encargada de planificar el desarrollo del sector minero-energético en Colombia."
+  },
+  {
+    "question": "¿Qué hace la UPME en energía eléctrica?",
+    "answer": "Realiza proyecciones de demanda, planea expansión del sistema eléctrico y evalúa proyectos energéticos."
+  },
+  {
+    "question": "¿Por qué es importante la planeación energética?",
+    "answer": "Porque permite garantizar que la oferta de energía sea suficiente para la demanda futura."
+  },
+  {
+    "question": "¿Cómo puedo vender energía solar en Colombia?",
+    "answer": "Debes registrarte en el mercado de energía, cumplir requisitos técnicos y participar en el sistema regulado por la CREG y operado por XM."
+  },
+  {
+    "question": "¿Qué es la autogeneración de energía?",
+    "answer": "Es cuando un usuario produce su propia energía para consumo propio, generalmente con paneles solares."
+  },
+  {
+    "question": "¿Qué es la generación distribuida?",
+    "answer": "Es la producción de energía cerca del lugar de consumo, como sistemas solares en viviendas o empresas."
+  },
+  {
+    "question": "¿Cuál es la diferencia entre autogeneración y generación distribuida?",
+    "answer": "La autogeneración es para consumo propio, mientras que la generación distribuida puede inyectar excedentes a la red eléctrica."
+  },
+  {
+    "question": "¿Qué es el mercado mayorista de energía?",
+    "answer": "Es el mercado donde se compra y vende energía entre generadores y comercializadores antes de llegar al usuario final."
+  },
+  {
+    "question": "¿Qué es la bolsa de energía en Colombia?",
+    "answer": "Es el mercado donde se negocia energía eléctrica en tiempo real entre generadores y comercializadores."
+  },
+  {
+    "question": "¿Qué es la demanda de energía?",
+    "answer": "Es la cantidad total de energía que consumen los usuarios en un periodo de tiempo."
+  },
+  {
+    "question": "¿Qué es la oferta de energía?",
+    "answer": "Es la cantidad de energía que los generadores están dispuestos a producir y vender."
+  },
+  {
+    "question": "¿Qué es un comercializador de energía?",
+    "answer": "Es la empresa que compra energía en el mercado mayorista y la vende a los usuarios finales."
+  },
+  {
+    "question": "¿Qué es la tarifa de energía eléctrica?",
+    "answer": "Es el precio que paga el usuario final por el consumo de electricidad."
+  },
+  {
+    "question": "¿Quién regula las tarifas de energía en Colombia?",
+    "answer": "La Comisión de Regulación de Energía y Gas (CREG)."
+  },
+  {
+    "question": "¿Qué pasa cuando la demanda supera la oferta?",
+    "answer": "El precio de la energía puede aumentar debido a la escasez en el mercado."
+  },
+  {
+    "question": "¿Qué es el despacho económico de energía?",
+    "answer": "Es la selección de las plantas más eficientes para generar energía al menor costo posible."
+  },
+  {
+    "question": "¿Qué es la eficiencia energética?",
+    "answer": "Es el uso óptimo de la energía para realizar la misma actividad con menor consumo."
+  },
+  {
+    "question": "¿Qué es la transición energética?",
+    "answer": "Es el proceso de cambio hacia fuentes de energía más limpias y sostenibles."
+  },
+  {
+    "question": "¿Qué es la seguridad energética?",
+    "answer": "Es la garantía de disponibilidad de energía suficiente para cubrir la demanda del país."
+  },
+  {
+    "question": "¿Qué es la capacidad instalada?",
+    "answer": "Es la máxima cantidad de energía que puede producir un sistema o planta."
+  }
+
+]
+  

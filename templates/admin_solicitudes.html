@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Solicitudes | Sol Market</title>
+
+  <!-- BOOTSTRAP -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- ANIMATE -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
+
+  <!-- STYLE -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <style>
+
+    body{
+      background: url("{{ url_for('static', filename='img/index3.jpg') }}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      min-height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      padding-top: 95px;
+    }
+
+    body::before{
+      content:"";
+      position: fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background: rgba(0,0,0,0.65);
+      z-index:-1;
+    }
+
+    /* NAVBAR IGUAL A RESERVAS */
+    .custom-navbar{
+      background: rgba(15, 32, 39, 0.96) !important;
+      border: none;
+      padding: 10px 0;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 5px 25px rgba(0,0,0,0.35);
+    }
+
+    .logo-container{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none !important;
+    }
+
+    .logo-img{
+      width:65px;
+      height:65px;
+      object-fit:contain;
+    }
+
+    .logo-text{
+      color:#2BB673;
+      font-size:28px;
+      font-weight:bold;
+    }
+
+    .custom-menu li a{
+      color:white !important;
+      font-weight:600;
+      padding:12px 20px !important;
+      border-radius:12px;
+      transition:0.3s;
+    }
+
+    .custom-menu li a:hover{
+      background: linear-gradient(90deg,#2BB673,#FFD24C);
+      transform: translateY(-2px);
+    }
+
+    /* CONTENEDOR */
+    .admin-container{
+      max-width: 1200px;
+      margin: 60px auto;
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(12px);
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0px 10px 35px rgba(0,0,0,0.45);
+    }
+
+    .admin-title{
+      text-align:center;
+      color:white;
+      font-size:34px;
+      font-weight:bold;
+      margin-bottom:30px;
+    }
+
+    /* TABLE */
+    .table{
+      background: rgba(255,255,255,0.08);
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .table thead{
+      background: linear-gradient(90deg,#2BB673,#FFD24C);
+      color:white;
+    }
+
+    .table tbody tr{
+      color:white;
+    }
+
+    .table tbody tr:hover{
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* BOTONES */
+    .btn-edit{
+      background:#FFD24C;
+      border:none;
+      padding:6px 12px;
+      border-radius:8px;
+      font-weight:bold;
+    }
+
+    .btn-delete{
+      background:#ff4d4d;
+      border:none;
+      padding:6px 12px;
+      border-radius:8px;
+      font-weight:bold;
+      color:white;
+    }
+
+    footer{
+      background: rgba(0,0,0,0.92);
+      color:white;
+      padding:40px 0 20px;
+      margin-top:60px;
+      text-align:center;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<header>
+  <nav class="navbar navbar-default navbar-fixed-top custom-navbar">
+    <div class="container">
+
+      <div class="navbar-header">
+        <a class="navbar-brand logo-container" href="{{ url_for('index') }}">
+          <img src="{{ url_for('static', filename='img/logo222.png') }}" class="logo-img">
+          <span class="logo-text">Sol Market Admin</span>
+        </a>
+      </div>
+
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right custom-menu">
+
+          <li><a href="{{ url_for('admin_solicitudes') }}"><i class="fa fa-home"></i> Registros</a></li>
+
+          <li><a href="{{ url_for('admin_ventas') }}" class="active"><i class="fa fa-line-chart"></i> Ventas</a></li>
+
+         <li><a href="{{ url_for('admin_ofertas') }}" class="active"><i class="fa fa-tags"></i> Ofertas </a></li>
+
+
+          <li><a href="{{ url_for('admin_facturas') }}" class="active"><i class="fa fa-file-text"></i> Facturas</a></li>
+
+          <li><a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> Salir</a></li>
+
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+</header>
+
+<!-- CONTENIDO -->
+<div class="admin-container wow fadeInUp">
+
+  <h2 class="admin-title">📄 Solicitudes de Registro</h2>
+
+  {% if solicitudes and solicitudes|length > 0 %}
+
+  <div class="table-responsive">
+
+    <table class="table table-bordered text-center">
+
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Documento</th>
+          <th>Correo</th>
+          <th>Dirección</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for s in solicitudes %}
+        <tr>
+          <td>{{ s.id }}</td>
+          <td>{{ s.nombre }}</td>
+          <td>{{ s.numero_documento }}</td>
+          <td>{{ s.correo }}</td>
+          <td>{{ s.direccion }}</td>
+          <td>{{ s.tipo_usuario }}</td>
+
+          <td>
+
+            <!-- EDITAR -->
+            <button class="btn-edit"
+              data-toggle="modal"
+              data-target="#editModal{{ s.id }}">
+              ✏️ Editar
+            </button>
+
+            <!-- ELIMINAR -->
+            <a href="{{ url_for('eliminar_solicitud', id=s.id) }}"
+               onclick="return confirm('¿Seguro que deseas eliminar este registro?')">
+              <button class="btn-delete">🗑️</button>
+            </a>
+
+          </td>
+        </tr>
+
+        <!-- MODAL EDITAR -->
+        <div class="modal fade" id="editModal{{ s.id }}">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <form method="post" action="{{ url_for('editar_solicitud', id=s.id) }}">
+
+                <div class="modal-header">
+                  <h4>Editar Solicitud</h4>
+                </div>
+
+                <div class="modal-body">
+
+                  <input type="text" name="nombre" value="{{ s.nombre }}" class="form-control mb-2">
+                  <input type="text" name="numero_documento" value="{{ s.numero_documento }}" class="form-control mb-2">
+                  <input type="email" name="correo" value="{{ s.correo }}" class="form-control mb-2">
+                  <input type="text" name="direccion" value="{{ s.direccion }}" class="form-control mb-2">
+
+                  <select name="tipo_usuario" class="form-control">
+                    <option value="comprador" {% if s.tipo_usuario=='comprador' %}selected{% endif %}>Comprador</option>
+                    <option value="vendedor" {% if s.tipo_usuario=='vendedor' %}selected{% endif %}>Vendedor</option>
+                  </select>
+
+                </div>
+
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-success">Guardar</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+      </tbody>
+
+    </table>
+
+  </div>
+
+  {% else %}
+    <div class="alert alert-warning text-center">
+      No hay solicitudes registradas
+    </div>
+  {% endif %}
+
+</div>
+
+
+<!-- SCRIPTS -->
+<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/wow.min.js') }}"></script>
+
+<script>
+  new WOW().init();
+</script>
+
+</body>
+</html>

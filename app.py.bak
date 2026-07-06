@@ -1,0 +1,160 @@
+from flask import Flask, render_template, request, redirect, url_for, flash, session
+import sqlite3
+import os
+
+app = Flask(__name__)
+app.secret_key = 'solmarket123'
+
+# --- Conexión a la base de datos ---
+def get_db_connection():
+    conn = sqlite3.connect('database.db')
+    conn.row_factory = sqlite3.Row
+    return conn
+
+# --- Creación de tablas ---
+def init_db():
+    conn = get_db_connection()
+    c = conn.cursor()
+
+    # Tabla de login
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS login (
+            cc TEXT PRIMARY KEY,
+            clave TEXT NOT NULL
+        )
+    ''')
+
+    # Tabla de solicitud de registro
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS solicitud_registro (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre_completo TEXT NOT NULL,
+            numero_documento TEXT UNIQUE NOT NULL,
+            clave TEXT NOT NULL,
+            correo TEXT NOT NULL,
+            celular TEXT NOT NULL,
+            rol TEXT CHECK(rol IN ('comprador', 'vendedor', 'comprador-vendedor', 'admin')) NOT NULL
+        )
+    ''')
+
+    # Tabla de solicitud de compra
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS solicitud_compra (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre_comprador TEXT NOT NULL,
+            numero_documento TEXT NOT NULL,
+            energia_solicitada REAL NOT NULL,
+            celular TEXT NOT NULL,
+            fecha TEXT NOT NULL,
+            metodo_pago TEXT NOT NULL,
+            FOREIGN KEY (numero_documento) REFERENCES solicitud_registro (numero_documento)
+        )
+    ''')
+
+    # Tabla de registro de ventas
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS registro_ventas (
+            id_venta INTEGER PRIMARY KEY AUTOINCREMENT,
+            nombre_vendedor TEXT NOT NULL,
+            numero_documento TEXT NOT NULL,
+            cantidad_horas REAL NOT NULL,
+            precioxhora REAL NOT NULL,
+            precio_total REAL NOT NULL,
+            FOREIGN KEY (numero_documento) REFERENCES solicitud_registro (numero_documento)
+        )
+    ''')
+
+    # Insertar administrador predefinido si no existe
+    admin_doc = "1"
+    admin_pass = "admin123"
+    c.execute("SELECT * FROM solicitud_registro WHERE numero_documento = ?", (admin_doc,))
+    admin_exists = c.fetchone()
+
+    if not admin_exists:
+        c.execute('''
+            INSERT INTO solicitud_registro (nombre_completo, numero_documento, clave, correo, celular, rol)
+            VALUES (?, ?, ?, ?, ?, ?)
+        ''', ('Administrador', admin_doc, admin_pass, 'admin@solmarket.com', '0000000000', 'admin'))
+        c.execute("INSERT OR IGNORE INTO login (cc, clave) VALUES (?, ?)", (admin_doc, admin_pass))
+
+    conn.commit()
+    conn.close()
+
+# --- Inicialización manual (Flask 3.x compatible) ---
+with app.app_context():
+    init_db()
+
+# --- Rutas principales ---
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+# --- Login ---
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        cc = request.form['cc']
+        clave = request.form['clave']
+
+        conn = get_db_connection()
+        user = conn.execute('SELECT * FROM solicitud_registro WHERE numero_documento = ? AND clave = ?', (cc, clave)).fetchone()
+        conn.close()
+
+        if user:
+            session['user_id'] = user['numero_documento']
+            session['rol'] = user['rol']
+
+            flash('Inicio de sesión exitoso', 'success')
+
+            if user['rol'] == 'admin':
+                return redirect(url_for('admin_dashboard'))
+            else:
+                return redirect(url_for('index'))
+        else:
+            flash('Documento o clave incorrectos', 'danger')
+            return redirect(url_for('login'))
+    return render_template('login.html')
+
+# --- Logout ---
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('Sesión cerrada correctamente', 'info')
+    return redirect(url_for('login'))
+
+# --- Panel del administrador ---
+@app.route('/admin')
+def admin_dashboard():
+    if 'rol' not in session or session['rol'] != 'admin':
+        flash('Acceso denegado', 'danger')
+        return redirect(url_for('login'))
+    return render_template('admin_index.html')
+
+@app.route('/admin/usuarios')
+def admin_usuarios():
+    if 'rol' not in session or session['rol'] != 'admin':
+        flash('Acceso denegado', 'danger')
+        return redirect(url_for('login'))
+    conn = get_db_connection()
+    usuarios = conn.execute('SELECT * FROM solicitud_registro').fetchall()
+    conn.close()
+    return render_template('admin_usuarios.html', usuarios=usuarios)
+
+@app.route('/admin/ventas')
+def admin_ventas():
+    if 'rol' not in session or session['rol'] != 'admin':
+        flash('Acceso denegado', 'danger')
+        return redirect(url_for('login'))
+    conn = get_db_connection()
+    ventas = conn.execute('SELECT * FROM registro_ventas').fetchall()
+    conn.close()
+    return render_template('admin_ventas.html', ventas=ventas)
+
+# --- Página de error 404 ---
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+# --- Ejecución del servidor ---
+if __name__ == '__main__':
+    app.run(debug=True)

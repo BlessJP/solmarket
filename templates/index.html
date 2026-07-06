@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>SOL-MARKET</title>
+
+  <!-- CSS -->
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+
+
+<header id="header">
+
+    <nav class="navbar navbar-default navbar-fixed-top custom-navbar" role="banner">
+
+        <div class="container">
+
+            <!-- LOGO -->
+            <div class="navbar-header">
+
+                <!-- BOTON RESPONSIVE -->
+                <button
+                    type="button"
+                    class="navbar-toggle"
+                    data-toggle="collapse"
+                    data-target=".navbar-collapse"
+                >
+                    <span class="sr-only">Toggle navigation</span>
+
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <!-- LOGO -->
+                <a class="navbar-brand logo-container" href="{{ url_for('index') }}">
+
+                    <img
+                        src="{{ url_for('static', filename='img/logo222.png') }}"
+                        alt="Logo Sol Market"
+                        class="logo-img"
+                    >
+
+                    <span class="logo-text">
+                        Sol Market
+                    </span>
+
+                </a>
+
+            </div>
+
+            <!-- MENU -->
+            <div class="collapse navbar-collapse">
+
+                <ul class="nav navbar-nav navbar-right custom-menu">
+
+                    <li>
+                        <a href="{{ url_for('index') }}" class="active">
+                            <i class="fa fa-home"></i>
+                            Inicio
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ url_for('noticias') }}" >
+                            <i class="fa fa-bullhorn"></i>
+                            Noticias Sol M
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ url_for('registro_form') }}">
+                           <i class="fa fa-edit"></i>
+                            Regístrate
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ url_for('login') }}">
+                            <i class="fa fa-sign-in"></i>
+                            Login
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ url_for('chatbox') }}">
+                            <i class="fa fa-comments"></i>
+                            Chat IA
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+</header>
+
+<!-- =========================
+     ESTILOS PROPIOS
+========================= -->
+
+<style>
+
+    /* ESPACIO PARA NAVBAR FIXED */
+    body{
+        padding-top: 90px;
+    }
+
+     NAVBAR 
+    .custom-navbar{
+
+        background: rgba(15, 32, 39, 0.95) !important;
+
+        border: none;
+
+        padding: 10px 0;
+
+        backdrop-filter: blur(10px);
+
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+     LOGO 
+    .logo-container{
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        color: white !important;
+
+        font-size: 24px;
+
+        font-weight: bold;
+    }
+
+    .logo-container:hover{
+        text-decoration: none;
+    }
+
+    .logo-img{
+
+        width: 65px;
+
+        height: 65px;
+
+        object-fit: contain;
+    }
+
+    .logo-text{
+
+        color: #2BB673 ;
+
+        font-size: 26px;
+
+        font-weight: bold;
+
+        letter-spacing: 1px;
+    }
+
+   
+    .custom-menu{
+
+        margin-top: 10px;
+    }
+
+    .custom-menu li a{
+
+        color: white !important;
+
+        font-size: 16px;
+
+        font-weight: 600;
+
+        margin-left: 10px;
+
+        padding: 12px 18px !important;
+
+        border-radius: 10px;
+
+        transition: 0.3s;
+    }
+
+    
+    .custom-menu li a:hover{
+
+        background: linear-gradient(90deg, #2BB673, #FFD24C);
+
+        color: white !important;
+
+        transform: translateY(-2px);
+    }
+
+    
+    .custom-menu li a.active{
+
+        background: linear-gradient(90deg, #2BB673, #FFD24C);
+
+        color: white !important;
+    }
+
+    
+    .custom-menu li a i{
+
+        margin-right: 6px;
+    }
+
+    
+    @media(max-width:768px){
+
+        .logo-text{
+            font-size: 22px;
+        }
+
+        .logo-img{
+            width: 55px;
+            height: 55px;
+        }
+
+        .custom-menu{
+
+            margin-top: 20px;
+
+            text-align: center;
+        }
+
+        .custom-menu li a{
+
+            margin-bottom: 10px;
+        }
+    }
+
+</style>
+
+  
+  <div class="slider">
+    <div id="about-slider">
+      <div id="carousel-slider" class="carousel slide" data-ride="carousel" data-interval="3000">
+
+        <!-- Indicadores -->
+        <ol class="carousel-indicators">
+          <li data-target="#carousel-slider" data-slide-to="0" class="active"></li>
+        </ol>
+
+        <!-- Slides -->
+        <div class="carousel-inner">
+          <div class="item active">
+
+            <img src="{{ url_for('static', filename='img/index3.jpg') }}" class="img-responsive">
+
+            <div class="carousel-caption custom-caption">
+              <h2>BIENVENIDOS A SOL MARKET</h2>
+              <p>REGÍSTRATE Y TEN LA EXPERIENCIA DE COMPRAR Y VENDER ENERGÍA</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+ 
+
+  DEPARTAMENTOS 
+  <div class="paquetes">
+
+    <div class="text-center">
+      <h2 style="color: white;">Proximamente nuestras oficinas estaran en estos estos Departamentos</h2>
+      <p>Sol Market permite intercambiar energía solar entre usuarios. Próximamente en todo Colombia...</p>
+    </div>
+
+    <div class="container">
+
+      <!-- CHOCÓ -->
+      <div class="col-md-4">
+        <figure class="effect-marley">
+          <img src="{{ url_for('static', filename='img/enechoco.jpg') }}" alt="" class="img-responsive" />
+
+          <figcaption>
+            <h4>
+              <a class="cityT" target="_blank"
+                href="https://docs.upme.gov.co/SalaPrensa/ComunicadosPrensa/Position_Paper_BahiaS_2024_V3.pdf">
+                Departamento del Chocó
+              </a>
+            </h4>
+
+            <p>
+              Conoce nuestras ofertas en el departamento del Chocó.
+
+              Actualmente estamos trabajando para que te acerques y nos des el privilegio de atenderte personalmente.
+            </p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <!-- ATLANTICO -->
+      <div class="col-md-4">
+        <figure class="effect-marley">
+          <img src="{{ url_for('static', filename='img/ene.jpg') }}" alt="" class="img-responsive" />
+
+          <figcaption>
+            <h4>
+              <a class="cityT" target="_blank"
+                href="https://www.minenergia.gov.co/es/sala-de-prensa/noticias-index/gobierno-nacional-iniciara-en-barranquilla-programa-colombia-solar/">
+                Departamento del Atlántico
+              </a>
+            </h4>
+
+            <p>
+              Actualmente estamos trabajando para que te acerques y nos des el privilegio de atenderte personalmente.
+            </p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <!-- ANTIOQUIA -->
+      <div class="col-md-4">
+        <figure class="effect-marley">
+          <img src="{{ url_for('static', filename='img/ene3.jpg') }}" alt="" class="img-responsive" />
+
+          <figcaption>
+            <h4>
+              <a class="cityT" target="_blank"
+                href="https://www.elespectador.com/ambiente/en-medellin-esta-la-primera-comunidad-que-genera-energia-solar-y-la-vende-al-sistema/">
+                Departamento de Antioquia
+              </a>
+            </h4>
+
+            <p>
+              Antioquia unida con Sol Market. 
+
+              Actualmente estamos trabajando para que te acerques y nos des el privilegio de atenderte personalmente.
+
+            </p>
+          </figcaption>
+        </figure>
+      </div>
+
+    </div>
+
+    <!-- MAS SOBRE SOL MARKET -->
+    <br><br>
+
+    <div class="text-center">
+      <h2 style="color: white;">Más sobre Sol Market...</h2>
+      <p style="color: black;">
+        Sol Market ofrece las mejores oportunidades para intercambiar energía solar...
+      </p>
+    </div>
+
+    <div class="container">
+
+      <!-- ITEM 1 -->
+      <div class="col-md-4">
+        <figure class="effect-marley">
+          <img src="{{ url_for('static', filename='img/01.png') }}" alt="" class="img-responsive" />
+
+          <figcaption>
+            <h4>
+              <a class="cityT" target="_blank"
+                href="https://dspace.tdea.edu.co/collections/27051f57-617b-4ce3-914d-6db903398e21">
+               
+              </a>
+            </h4>
+
+            <p>CONSUMO / VENTA DE ENERGIA </p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <!-- ITEM 2 -->
+      <div class="col-md-4">
+        <figure class="effect-marley">
+          <img src="{{ url_for('static', filename='img/02.png') }}" alt="" class="img-responsive" />
+
+          <figcaption>
+            <h4>
+              <a class="cityT" target="_blank"
+                href="https://dspace.tdea.edu.co/collections/27051f57-617b-4ce3-914d-6db903398e21">
+                
+              </a>
+            </h4>
+
+            <p>Problema y Justificación</p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <!-- ITEM 3 -->
+      <div class="col-md-4">
+        <figure class="effect-marley">
+          <img src="{{ url_for('static', filename='img/03.png') }}" alt="" class="img-responsive" />
+
+          <figcaption>
+            <h4>
+              <a class="cityT" target="_blank"
+                href="https://dspace.tdea.edu.co/collections/27051f57-617b-4ce3-914d-6db903398e21">
+                
+              </a>
+            </h4>
+
+            <p>Semillero Energia Inteligente / Natalia Villalobos</p>
+          </figcaption>
+        </figure>
+      </div>
+
+    </div>
+  </div>
+
+  
+  <div class="about">
+    <div class="container">
+
+      <div class="text-center">
+
+        <h2>Sol Market: Simulador de compra y venta de energía renovable</h2>
+
+        <div class="col-md-10 col-md-offset-1">
+
+          <p>
+            El presente proyecto busca desarrollar un software para facilitar
+            el intercambio de energía solar entre usuarios en Colombia
+            
+           
+            <br><br>
+
+            Ante la creciente adopción de tecnologías solares y la problemática
+            de la pobreza energética en zonas rurales, esta plataforma permitirá
+            optimizar la gestión y comercialización de excedentes energéticos,
+            incentivando el uso de energías renovables.
+            <br><br>
+
+            
+            <br><br>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+   <footer>
+
+        <div class="container">
+
+            <div class="row">
+
+                <!-- SOBRE NOSOTROS -->
+                <div class="col-md-4 wow fadeInDown">
+
+                    <h4>Sobre Nosotros</h4>
+
+                    <p>
+                        Sol Market es un software que facilita
+                        la compra y venta de energía solar.
+                    </p>
+
+                    <ul>
+
+                        <li>
+                            <i class="fa fa-home"></i>
+                            Medellín, Colombia
+                        </li>
+
+                        <li>
+                            <i class="fa fa-phone"></i>
+                            +57 4488123
+                        </li>
+
+                        <li>
+                            <i class="fa fa-envelope"></i>
+                            solmarketdea@gmail.com
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <!-- WHATSAPP -->
+                <div class="col-md-4 wow fadeInDown">
+
+                    <h4>Resolvemos tus dudas</h4>
+
+                    <p>
+                        ¿Tienes alguna duda?
+                        Contáctanos directamente.
+                    </p>
+
+                    <a class="btn btn-success"
+                       target="_blank"
+                       href="https://wa.me/573012374215">
+
+                        <i class="fa fa-whatsapp"></i>
+                        Chatea con nosotros
+
+                    </a>
+
+                </div>
+
+                <!-- REDES -->
+                <div class="col-md-4 wow fadeInDown">
+
+                    <h4>Redes Sociales</h4>
+
+                    <ul class="social-network">
+
+                        <li>
+                            <a target="_blank"
+                               href="https://facebook.com">
+
+                                <i class="fa fa-facebook"></i>
+
+                            </a>
+                        </li>
+
+                        <li>
+                            <a target="_blank"
+                               href="https://instagram.com">
+
+                                <i class="fa fa-instagram"></i>
+
+                            </a>
+                        </li>
+
+                        <li>
+                            <a target="_blank"
+                               href="https://youtube.com">
+
+                                <i class="fa fa-youtube-play"></i>
+
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <!-- COPYRIGHT -->
+            <div class="text-center">
+
+                &copy; 2026 Sol Market.
+                Todos los derechos reservados.
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+  <!-- JS -->
+  <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/wow.min.js') }}"></script>
+
+  <script>
+    wow = new WOW({}).init();
+  </script>
+
+</body>
+</html>

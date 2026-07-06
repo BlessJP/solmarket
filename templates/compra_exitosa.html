@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Compra Exitosa | Sol Market</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+
+        body{
+
+            background: linear-gradient(
+                135deg,
+                #0f2027,
+                #203a43,
+                #2c5364
+            );
+            
+            min-height: 100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            font-family:'Segoe UI', sans-serif;
+        }
+
+        .success-box{
+
+            background: rgba(255,255,255,0.10);
+
+            backdrop-filter: blur(12px);
+
+            padding:50px;
+
+            border-radius:25px;
+
+            width:90%;
+
+            max-width:700px;
+
+            text-align:center;
+
+            color:white;
+
+            box-shadow:0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .success-box i{
+
+            font-size:90px;
+
+            color:#2BB673;
+
+            margin-bottom:25px;
+        }
+
+        .success-box h1{
+
+            font-size:38px;
+
+            font-weight:bold;
+
+            margin-bottom:20px;
+        }
+
+        .success-box p{
+
+            font-size:18px;
+
+            line-height:1.8;
+        }
+
+        .codigo{
+
+            background:#FFD24C;
+
+            color:black;
+
+            padding:15px;
+
+            border-radius:12px;
+
+            font-weight:bold;
+
+            margin:25px 0;
+
+            font-size:20px;
+        }
+
+        .btn-home{
+
+            display:inline-block;
+
+            margin-top:25px;
+
+            padding:14px 30px;
+
+            border-radius:12px;
+
+            background: linear-gradient(
+                90deg,
+                #2BB673,
+                #FFD24C
+            );
+
+            color:white;
+
+            text-decoration:none;
+
+            font-weight:bold;
+
+            transition:0.3s;
+        }
+
+        .btn-home:hover{
+
+            transform:scale(1.05);
+
+            text-decoration:none;
+
+            color:white;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="success-box">
+
+        <i class="fa fa-check-circle"></i>
+
+        <h1>Compra Registrada</h1>
+
+        <p>
+
+            Tu solicitud de compra de energía fue registrada correctamente.
+
+        </p>
+
+        <div class="codigo">
+
+            Código de pago:
+            {{ codigo }}
+
+        </div>
+
+        <p>
+
+            Una vez realizado el pago,
+            el equipo de Sol Market validará la transacción
+            y se comunicará contigo mediante tu correo electrónico
+            o número celular para coordinar
+            la activación e instalación del servicio energético.
+
+        </p>
+
+        <p>
+
+            También podrás presentar tu factura descargada
+            como comprobante de compra.
+
+        </p>
+
+        <a href="{{ url_for('reservas') }}"
+           class="btn-home">
+
+            Volver
+
+        </a>
+        <br><br>
+
+<a href="{{ url_for('static', filename='facturas/' + factura) }}"
+   class="btn-home"
+   download>
+
+    Descargar Factura PDF
+
+</a>
+
+    </div>
+
+</body>
+
+</html>

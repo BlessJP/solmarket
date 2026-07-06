@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Chat IA - Sol Market</title>
+
+    <!-- Bootstrap -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Animate -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.css') }}">
+
+    <!-- Style -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* =========================
+           CONTENEDOR PRINCIPAL
+        ========================== */
+
+        .main-container{
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 50px 20px;
+        }
+
+        /* =========================
+           CAJA DEL CHAT
+        ========================== */
+
+        .chat-container{
+            width: 100%;
+            max-width: 900px;
+            background: #ffffff;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0px 12px 40px rgba(0,0,0,0.35);
+        }
+
+        /* =========================
+           HEADER
+        ========================== */
+
+        .chat-header{
+            background: linear-gradient(90deg, #2BB673, #FFD24C);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .chat-header h1{
+            color: white !important;
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .chat-header p{
+            color: white !important;
+            font-size: 17px;
+            margin: 0;
+        }
+
+        /* =========================
+           BODY CHAT
+        ========================== */
+
+        .chat-body{
+            height: 520px;
+            overflow-y: auto;
+            padding: 25px;
+            background: #f5f7fa;
+        }
+
+        /* SCROLL */
+        .chat-body::-webkit-scrollbar{
+            width: 8px;
+        }
+
+        .chat-body::-webkit-scrollbar-thumb{
+            background: #2BB673;
+            border-radius: 10px;
+        }
+
+        /* =========================
+           MENSAJES
+        ========================== */
+
+        .message{
+            margin-bottom: 18px;
+            padding: 14px 18px;
+            border-radius: 18px;
+            max-width: 75%;
+            word-wrap: break-word;
+            font-size: 15px;
+            line-height: 1.6;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .user-message{
+            background: #2BB673;
+            color: white;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .bot-message{
+            background: #e9ecef;
+            color: #222;
+            margin-right: auto;
+        }
+
+        /* =========================
+           INPUT
+        ========================== */
+
+        .chat-input-container{
+            display: flex;
+            gap: 12px;
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-input{
+            flex: 1;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            padding: 14px;
+            font-size: 15px;
+            background: white !important;
+            color: black !important;
+        }
+
+        .chat-input::placeholder{
+            color: #666 !important;
+        }
+
+        .chat-input:focus{
+            outline: none;
+            border-color: #2BB673;
+            box-shadow: 0 0 8px rgba(43,182,115,0.3);
+        }
+
+        .send-btn{
+            background: linear-gradient(90deg, #FFD24C, #2BB673);
+            border: none;
+            padding: 12px 28px;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .send-btn:hover{
+            transform: scale(1.05);
+        }
+
+        /* =========================
+           BOTON VOLVER
+        ========================== */
+
+        .back-container{
+            text-align: center;
+            padding: 25px;
+            background: white;
+        }
+
+        .back-btn{
+            background: #2BB673;
+            color: white !important;
+            padding: 12px 30px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover{
+            background: #23945c;
+            text-decoration: none;
+            color: white !important;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer{
+            background: #111;
+            padding: 45px 0;
+            margin-top: auto;
+        }
+
+        footer h4{
+            color: white !important;
+            font-weight: bold;
+            margin-bottom: 18px;
+        }
+
+        footer p{
+            color: #d8d8d8 !important;
+            line-height: 1.7;
+        }
+
+        footer ul{
+            padding: 0;
+        }
+
+        footer ul li{
+            list-style: none;
+            color: #d8d8d8 !important;
+            margin-bottom: 10px;
+        }
+
+        footer ul li i{
+            margin-right: 10px;
+            color: #d8d8d8;
+        }
+
+        /* =========================
+           REDES SOCIALES
+        ========================== */
+
+        .social-network{
+            margin-top: 10px;
+        }
+
+        .social-network li{
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .social-network a{
+            color: white !important;
+            font-size: 24px;
+            transition: 0.3s;
+        }
+
+        .social-network a:hover{
+            color: #FFD24C !important;
+            transform: scale(1.2);
+        }
+
+        /* =========================
+           EFECTO ESCRIBIENDO
+        ========================== */
+
+        .typing{
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media(max-width: 768px){
+
+            .chat-body{
+                height: 400px;
+            }
+
+            .message{
+                max-width: 90%;
+            }
+
+            .chat-header h1{
+                font-size: 28px;
+            }
+
+            .chat-input-container{
+                flex-direction: column;
+            }
+
+            .send-btn{
+                width: 100%;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- =========================
+         CONTENIDO PRINCIPAL
+    ========================== -->
+
+    <div class="main-container">
+
+        <div class="chat-container wow fadeInUp">
+
+            <!-- HEADER -->
+            <div class="chat-header">
+
+                <h1>Asistente IA Sol Market ☀️</h1>
+
+                <p>
+                    Pregunta sobre energía solar, compra, venta y comunidades energéticas
+                </p>
+
+            </div>
+
+            <!-- CHAT -->
+            <div class="chat-body" id="chat-body">
+
+                <div class="message bot-message">
+
+                    👋 Hola, soy el asistente inteligente de Sol Market.
+                    <br><br>
+                    Estoy preparado para ayudarte con:
+                    <br>
+                    ✅ Energía solar
+                    <br>
+                    ✅ Compra y venta de energía
+                    <br>
+                    ✅ Comunidades energéticas
+                    <br>
+                    ✅ Funcionamiento de la plataforma
+
+                </div>
+
+            </div>
+
+            <!-- INPUT -->
+            <div class="chat-input-container">
+
+                <input
+                    type="text"
+                    id="chat-input"
+                    class="chat-input"
+                    placeholder="Escribe tu pregunta aquí..."
+                >
+
+                <button class="send-btn" id="send-btn">
+                    Enviar
+                </button>
+
+            </div>
+
+            <!-- BOTON REGRESAR -->
+            <div class="back-container">
+
+                <a href="{{ url_for('index') }}" class="back-btn">
+                    ← Regresar al Inicio
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+<footer>
+
+    <div class="container">
+
+        <div class="row">
+
+            <!-- SOBRE -->
+            <div class="col-md-4 wow fadeInDown">
+
+                <h4>Sobre Nosotros</h4>
+
+                <p>
+                    Sol Market es una plataforma inteligente
+                    enfocada en la compra y venta
+                    de energía solar.
+                </p>
+
+            </div>
+
+            <!-- CONTACTO -->
+            <div class="col-md-4 wow fadeInDown">
+
+                <h4>Contacto</h4>
+
+                <ul>
+
+                    <li>
+                        <i class="fa fa-home"></i>
+                        Medellín, Colombia
+                    </li>
+
+                    <li>
+                        <i class="fa fa-phone"></i>
+                        +57 300 000 0000
+                    </li>
+
+                    <li>
+                        <i class="fa fa-envelope"></i>
+                        solmarket@gmail.com
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- REDES -->
+            <div class="col-md-4 wow fadeInDown">
+
+                <h4>Redes Sociales</h4>
+
+                <ul class="social-network">
+
+                    <li>
+                        <a target="_blank"
+                           href="https://facebook.com">
+
+                            <i class="fa fa-facebook"></i>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a target="_blank"
+                           href="https://instagram.com">
+
+                            <i class="fa fa-instagram"></i>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a target="_blank"
+                           href="https://youtube.com">
+
+                            <i class="fa fa-youtube-play"></i>
+
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="text-center">
+
+            © 2026 Sol Market.
+            Todos los derechos reservados.
+
+        </div>
+
+    </div>
+
+</footer>
+    <!-- =========================
+         SCRIPTS
+    ========================== -->
+
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/wow.min.js') }}"></script>
+
+    <script>
+
+        new WOW().init();
+
+        // URL DEL CHATBOT
+        const API_URL = "/preguntar";
+
+        const chatBody = document.getElementById("chat-body");
+
+        const chatInput = document.getElementById("chat-input");
+
+        const sendBtn = document.getElementById("send-btn");
+
+        // =========================
+        // AGREGAR MENSAJES
+        // =========================
+
+        function addMessage(text, type){
+
+            const div = document.createElement("div");
+
+            div.classList.add("message");
+
+            if(type === "user"){
+
+                div.classList.add("user-message");
+
+            }else{
+
+                div.classList.add("bot-message");
+            }
+
+            div.innerHTML = text;
+
+            chatBody.appendChild(div);
+
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // =========================
+        // ENVIAR MENSAJE
+        // =========================
+
+        async function sendMessage(){
+
+            const question = chatInput.value.trim();
+
+            if(question === "") return;
+
+            // MENSAJE USUARIO
+            addMessage(question, "user");
+
+            chatInput.value = "";
+
+            // CARGANDO
+            const loading = document.createElement("div");
+
+            loading.classList.add(
+                "message",
+                "bot-message",
+                "typing"
+            );
+
+            loading.innerHTML = "Pensando...";
+
+            chatBody.appendChild(loading);
+
+            try{
+
+                const response = await fetch(API_URL, {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        pregunta: question
+                    })
+
+                });
+
+                const data = await response.json();
+
+                loading.remove();
+
+                addMessage(data.respuesta, "bot");
+
+            }catch(error){
+
+                loading.remove();
+
+                addMessage(
+                    "❌ Error conectando con Flask.",
+                    "bot"
+                );
+
+                console.error(error);
+            }
+        }
+
+        // BOTON ENVIAR
+        sendBtn.addEventListener("click", sendMessage);
+
+        // ENTER
+        chatInput.addEventListener("keypress", function(e){
+
+            if(e.key === "Enter"){
+
+                sendMessage();
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
+

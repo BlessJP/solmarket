@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login - Sol Market</title>
+
+    <!-- ======================================== -->
+    <!-- BOOTSTRAP -->
+    <!-- ======================================== -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <!-- ======================================== -->
+    <!-- FONT AWESOME -->
+    <!-- ======================================== -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- ======================================== -->
+    <!-- ANIMATE CSS -->
+    <!-- ======================================== -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/animate.css') }}">
+
+    <!-- ======================================== -->
+    <!-- STYLE CSS -->
+    <!-- ======================================== -->
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- ========================================
+         ESTILOS PERSONALIZADOS
+    ========================================= -->
+    <style>
+
+        /* ========================================
+           BODY
+        ========================================= */
+
+        body{
+
+            background: url("{{ url_for('static', filename='img/index3.jpg') }}");
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+
+            min-height: 100vh;
+
+            font-family: 'Segoe UI', sans-serif;
+
+            position: relative;
+
+            padding-top: 100px;
+        }
+
+        /* CAPA OSCURA */
+        body::before{
+
+            content: "";
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: rgba(0,0,0,0.65);
+
+            z-index: -1;
+        }
+
+        /* ========================================
+           NAVBAR
+        ========================================= */
+
+        .custom-navbar{
+
+            background: rgba(15, 32, 39, 0.95) !important;
+
+            border: none;
+
+            padding: 10px 0;
+
+            backdrop-filter: blur(10px);
+
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        /* LOGO */
+
+        .logo-container{
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            color: white !important;
+
+            font-size: 24px;
+
+            font-weight: bold;
+        }
+
+        .logo-container:hover{
+
+            text-decoration: none;
+        }
+
+        .logo-img{
+
+            width: 65px;
+
+            height: 65px;
+
+            object-fit: contain;
+        }
+
+        .logo-text{
+
+            color: #2BB673;
+
+            font-size: 26px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+        }
+
+        /* MENU */
+
+        .custom-menu{
+
+            margin-top: 10px;
+        }
+
+        .custom-menu li a{
+
+            color: white !important;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            margin-left: 10px;
+
+            padding: 12px 18px !important;
+
+            border-radius: 10px;
+
+            transition: 0.3s;
+        }
+
+        /* HOVER */
+
+        .custom-menu li a:hover{
+
+            background: linear-gradient(90deg, #2BB673, #FFD24C);
+
+            color: white !important;
+
+            transform: translateY(-2px);
+        }
+
+        /* ACTIVE */
+
+        .custom-menu li a.active{
+
+            background: linear-gradient(90deg, #2BB673, #FFD24C);
+
+            color: white !important;
+        }
+
+        /* ICONOS */
+
+        .custom-menu li a i{
+
+            margin-right: 6px;
+        }
+
+        /* ========================================
+           LOGIN CARD
+        ========================================= */
+
+        .login-container{
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 40px 20px;
+        }
+
+        .login-card{
+
+            width: 100%;
+
+            max-width: 450px;
+
+            background: rgba(255,255,255,0.12);
+
+            backdrop-filter: blur(12px);
+
+            border-radius: 25px;
+
+            padding: 40px;
+
+            box-shadow: 0px 10px 35px rgba(0,0,0,0.45);
+        }
+
+        /* TITULO */
+
+        .login-title{
+
+            color: white;
+
+            text-align: center;
+
+            font-size: 34px;
+
+            font-weight: bold;
+
+            margin-bottom: 30px;
+        }
+
+        /* LABELS */
+
+        .form-label{
+
+            color: white;
+
+            font-weight: 600;
+
+            margin-bottom: 8px;
+        }
+
+        /* INPUTS */
+
+        .form-control{
+
+            height: 50px;
+
+            border-radius: 12px;
+
+            border: none;
+
+            font-size: 15px;
+
+            padding-left: 15px;
+
+            color: black;
+
+            margin-bottom: 20px;
+        }
+
+        .form-control:focus{
+
+            box-shadow: 0 0 10px rgba(43,182,115,0.6);
+
+            border: none;
+        }
+
+        /* BOTONES */
+
+        .btn-login{
+
+            width: 100%;
+
+            height: 50px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: linear-gradient(90deg, #2BB673, #FFD24C);
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+            margin-bottom: 15px;
+        }
+
+        .btn-login:hover{
+
+            transform: scale(1.02);
+
+            opacity: 0.95;
+        }
+
+        .btn-back{
+
+            width: 100%;
+
+            height: 50px;
+
+            border-radius: 12px;
+
+            background: rgba(255,255,255,0.15);
+
+            color: white;
+
+            border: 1px solid rgba(255,255,255,0.25);
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            transition: 0.3s;
+        }
+
+        .btn-back:hover{
+
+            background: rgba(255,255,255,0.25);
+
+            color: white;
+        }
+
+        /* ALERTA */
+
+        .alert{
+
+            border-radius: 12px;
+
+            margin-bottom: 20px;
+        }
+
+        /* TEXTO FOOTER */
+
+        .footer-text{
+
+            color: #d6d6d6;
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            font-size: 14px;
+        }
+
+        /* ========================================
+           FOOTER
+        ========================================= */
+
+        footer{
+
+            background: rgba(0,0,0,0.90);
+
+            color: white;
+
+            padding: 50px 0 20px;
+
+            margin-top: 60px;
+        }
+
+        footer h4{
+
+            color: white;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+        footer p,
+        footer li{
+
+            color: #d6d6d6;
+        }
+
+        footer ul{
+
+            padding-left: 0;
+        }
+
+        footer li{
+
+            list-style: none;
+
+            margin-bottom: 10px;
+        }
+
+        .social-network li{
+
+            display: inline-block;
+
+            margin-right: 18px;
+        }
+
+        .social-network a{
+
+            color: white;
+
+            font-size: 28px;
+
+            transition: 0.3s;
+        }
+
+        .social-network a:hover{
+
+            color: #2BB673;
+        }
+
+        /* ========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media(max-width:768px){
+
+            .logo-text{
+
+                font-size: 22px;
+            }
+
+            .logo-img{
+
+                width: 55px;
+
+                height: 55px;
+            }
+
+            .custom-menu{
+
+                margin-top: 20px;
+
+                text-align: center;
+            }
+
+            .custom-menu li a{
+
+                margin-bottom: 10px;
+            }
+
+            .login-card{
+
+                padding: 30px;
+            }
+
+            .login-title{
+
+                font-size: 28px;
+            }
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- ========================================
+     HEADER
+======================================== -->
+
+<header id="header">
+
+    <nav class="navbar navbar-default navbar-fixed-top custom-navbar" role="banner">
+
+        <div class="container">
+
+            <!-- LOGO -->
+            <div class="navbar-header">
+
+                <!-- BOTON RESPONSIVE -->
+                <button
+                    type="button"
+                    class="navbar-toggle"
+                    data-toggle="collapse"
+                    data-target=".navbar-collapse"
+                >
+
+                    <span class="sr-only">
+                        Toggle navigation
+                    </span>
+
+                    <span class="icon-bar"></span>
+
+                    <span class="icon-bar"></span>
+
+                    <span class="icon-bar"></span>
+
+                </button>
+
+                <!-- LOGO -->
+                <a class="navbar-brand logo-container"
+                   href="{{ url_for('index') }}">
+
+                    <img
+                        src="{{ url_for('static', filename='img/logo222.png') }}"
+                        alt="Logo Sol Market"
+                        class="logo-img"
+                    >
+
+                    <span class="logo-text">
+                        Sol Market
+                    </span>
+
+                </a>
+
+            </div>
+
+            <!-- MENU -->
+            <div class="collapse navbar-collapse">
+
+                <ul class="nav navbar-nav navbar-right custom-menu">
+
+                    <li>
+                        <a href="{{ url_for('index') }}">
+                            <i class="fa fa-home"></i>
+                            Inicio
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ url_for('registro_form') }}">
+                            <i class="fa fa-user-plus"></i>
+                            Regístrate
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ url_for('login') }}" class="active">
+                            <i class="fa fa-sign-in"></i>
+                            Login
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="{{ url_for('chatbox') }}">
+                            <i class="fa fa-comments"></i>
+                            Chat IA
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+</header>
+
+<!-- ========================================
+     LOGIN
+======================================== -->
+
+<div class="login-container">
+
+    <div class="login-card wow fadeInUp">
+
+        <h2 class="login-title">
+            Iniciar Sesión
+        </h2>
+
+        <!-- MENSAJES FLASH -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+
+                <div class="alert alert-warning text-center">
+
+                    {{ messages[0] }}
+
+                </div>
+
+            {% endif %}
+        {% endwith %}
+
+        <!-- FORMULARIO -->
+        <form method="post">
+
+            <!-- DOCUMENTO -->
+            <div>
+
+                <label for="numero_documento"
+                       class="form-label">
+
+                    Número de documento
+
+                </label>
+
+                <input
+                    type="text"
+                    class="form-control"
+                    id="numero_documento"
+                    name="numero_documento"
+                    placeholder="Ingrese su documento"
+                    required
+                >
+
+            </div>
+
+            <!-- CONTRASEÑA -->
+            <div>
+
+                <label for="clave"
+                       class="form-label">
+
+                    Contraseña
+
+                </label>
+
+                <input
+                    type="password"
+                    class="form-control"
+                    id="clave"
+                    name="clave"
+                    placeholder="Ingrese su contraseña"
+                    required
+                >
+
+            </div>
+
+            <!-- BOTON LOGIN -->
+            <button type="submit"
+                    class="btn-login">
+
+                Entrar
+
+            </button>
+
+            <!-- BOTON VOLVER -->
+            <a href="{{ url_for('index') }}"
+               class="btn btn-back">
+
+                Volver al Inicio
+
+            </a>
+
+        </form>
+
+        <!-- COPYRIGHT -->
+        <div class="footer-text">
+
+            © 2026 Sol Market
+            | Todos los derechos reservados
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ========================================
+     FOOTER
+======================================== -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="row">
+
+            <!-- SOBRE -->
+            <div class="col-md-4 wow fadeInDown">
+
+                <h4>Sobre Nosotros</h4>
+
+                <p>
+                    Sol Market es una plataforma inteligente
+                    enfocada en la compra y venta
+                    de energía solar.
+                </p>
+
+            </div>
+
+            <!-- CONTACTO -->
+            <div class="col-md-4 wow fadeInDown">
+
+                <h4>Contacto</h4>
+
+                <ul>
+
+                    <li>
+                        <i class="fa fa-home"></i>
+                        Medellín, Colombia
+                    </li>
+
+                    <li>
+                        <i class="fa fa-phone"></i>
+                        +57 300 000 0000
+                    </li>
+
+                    <li>
+                        <i class="fa fa-envelope"></i>
+                        solmarket@gmail.com
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!-- REDES -->
+            <div class="col-md-4 wow fadeInDown">
+
+                <h4>Redes Sociales</h4>
+
+                <ul class="social-network">
+
+                    <li>
+                        <a target="_blank"
+                           href="https://facebook.com">
+
+                            <i class="fa fa-facebook"></i>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a target="_blank"
+                           href="https://instagram.com">
+
+                            <i class="fa fa-instagram"></i>
+
+                        </a>
+                    </li>
+
+                    <li>
+                        <a target="_blank"
+                           href="https://youtube.com">
+
+                            <i class="fa fa-youtube-play"></i>
+
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <div class="text-center">
+
+            © 2026 Sol Market.
+            Todos los derechos reservados.
+
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- ========================================
+     SCRIPTS
+======================================== -->
+
+<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/wow.min.js') }}"></script>
+
+<script>
+
+    new WOW().init();
+
+</script>
+
+</body>
+
+</html>

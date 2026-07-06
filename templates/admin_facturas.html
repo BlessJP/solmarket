@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Administrar Facturas - Sol Market</title>
+
+    <!-- BOOTSTRAP -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- ANIMATE -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/animate.css') }}">
+
+    <!-- STYLE -->
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        body{
+
+            background: url("{{ url_for('static', filename='img/index3.jpg') }}");
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+
+            min-height: 100vh;
+
+            font-family: 'Segoe UI', sans-serif;
+
+            position: relative;
+
+            padding-top: 100px;
+        }
+
+        body::before{
+
+            content: "";
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: rgba(0,0,0,0.70);
+
+            z-index: -1;
+        }
+
+        /* NAVBAR */
+
+        .custom-navbar{
+
+            background: rgba(15, 32, 39, 0.96) !important;
+
+            border: none;
+
+            padding: 10px 0;
+
+            backdrop-filter: blur(10px);
+
+            box-shadow: 0 5px 25px rgba(0,0,0,0.35);
+        }
+
+        .logo-container{
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            text-decoration: none !important;
+        }
+
+        .logo-img{
+
+            width: 65px;
+
+            height: 65px;
+
+            object-fit: contain;
+        }
+
+        .logo-text{
+
+            color: #2BB673;
+
+            font-size: 28px;
+
+            font-weight: bold;
+        }
+
+        .custom-menu{
+
+            margin-top: 10px;
+        }
+
+        .custom-menu li{
+
+            margin-left: 8px;
+        }
+
+        .custom-menu li a{
+
+            color: white !important;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            padding: 12px 20px !important;
+
+            border-radius: 12px;
+
+            transition: all 0.3s ease;
+        }
+
+        .custom-menu li a:hover{
+
+            background: linear-gradient(
+                90deg,
+                #2BB673,
+                #FFD24C
+            );
+
+            color: white !important;
+        }
+
+        .custom-menu li a.active{
+
+            background: linear-gradient(
+                90deg,
+                #2BB673,
+                #FFD24C
+            );
+
+            color: white !important;
+        }
+
+        .custom-menu li a i{
+
+            margin-right: 6px;
+        }
+
+        .navbar-toggle{
+
+            border: none;
+
+            margin-top: 18px;
+        }
+
+        .navbar-toggle .icon-bar{
+
+            background-color: white !important;
+        }
+
+        /* CONTENIDO */
+
+        .container-admin{
+
+            max-width: 1300px;
+
+            margin: auto;
+
+            background: rgba(255,255,255,0.10);
+
+            backdrop-filter: blur(12px);
+
+            padding: 40px;
+
+            border-radius: 25px;
+
+            box-shadow: 0px 10px 35px rgba(0,0,0,0.45);
+        }
+
+        .title{
+
+            text-align: center;
+
+            color: white;
+
+            font-size: 38px;
+
+            font-weight: bold;
+
+            margin-bottom: 35px;
+        }
+
+        .table{
+
+            background: rgba(255,255,255,0.08);
+
+            border-radius: 15px;
+
+            overflow: hidden;
+        }
+
+        .table thead{
+
+            background: linear-gradient(
+                90deg,
+                #2BB673,
+                #FFD24C
+            );
+
+            color: white;
+        }
+
+        .table tbody tr{
+
+            color: white;
+        }
+
+        .table tbody tr:hover{
+
+            background: rgba(255,255,255,0.08);
+        }
+
+        .btn-download{
+
+            background: #2BB673;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 10px;
+
+            padding: 8px 14px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .btn-download:hover{
+
+            opacity: 0.9;
+
+            transform: scale(1.03);
+        }
+
+        .btn-paid{
+
+            background: #FFD24C;
+
+            color: black;
+
+            border: none;
+
+            border-radius: 10px;
+
+            padding: 8px 14px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+        .btn-paid:hover{
+
+            opacity: 0.9;
+
+            transform: scale(1.03);
+        }
+
+        .estado-pendiente{
+
+            background: #ff4d4d;
+
+            color: white;
+
+            padding: 6px 12px;
+
+            border-radius: 12px;
+
+            font-weight: bold;
+        }
+
+        .estado-pagado{
+
+            background: #2BB673;
+
+            color: white;
+
+            padding: 6px 12px;
+
+            border-radius: 12px;
+
+            font-weight: bold;
+        }
+
+        footer{
+
+            background: rgba(0,0,0,0.92);
+
+            color: white;
+
+            padding: 50px 0 20px;
+
+            margin-top: 60px;
+        }
+
+        footer h4{
+
+            color: white;
+
+            font-weight: bold;
+
+            margin-bottom: 20px;
+        }
+
+        footer p,
+        footer li{
+
+            color: #d6d6d6;
+        }
+
+        footer ul{
+
+            padding-left: 0;
+        }
+
+        footer li{
+
+            list-style: none;
+
+            margin-bottom: 10px;
+        }
+
+        .social-network li{
+
+            display: inline-block;
+
+            margin-right: 18px;
+        }
+
+        .social-network a{
+
+            color: white;
+
+            font-size: 28px;
+
+            transition: 0.3s;
+        }
+
+        .social-network a:hover{
+
+            color: #FFD24C;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- ===================================================== -->
+<!-- NAVBAR -->
+<!-- ===================================================== -->
+
+<header id="header">
+
+    <nav class="navbar navbar-default navbar-fixed-top custom-navbar"
+         role="banner">
+
+        <div class="container">
+
+            <div class="navbar-header">
+
+                <button type="button"
+                        class="navbar-toggle"
+                        data-toggle="collapse"
+                        data-target=".navbar-collapse">
+
+                    <span class="sr-only">
+                        Toggle navigation
+                    </span>
+
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+
+                </button>
+
+                <a class="navbar-brand logo-container"
+                   href="{{ url_for('index') }}">
+
+                    <img src="{{ url_for('static', filename='img/logo222.png') }}"
+                         alt="Logo Sol Market"
+                         class="logo-img">
+
+                    <span class="logo-text">
+                        Sol Market
+                    </span>
+
+                </a>
+
+            </div>
+
+          <ul class="nav navbar-nav navbar-right custom-menu">
+
+          <li><a href="{{ url_for('admin_solicitudes') }}"><i class="fa fa-home"></i> Registros</a></li>
+
+          <li><a href="{{ url_for('admin_ventas') }}" class=""><i class="fa fa-line-chart"></i> Ventas</a></li>
+
+          <li><a href="{{ url_for('admin_ofertas') }}" class=""><i class="fa fa-tags"></i> Ofertas </a></li>
+
+
+          <li><a href="{{ url_for('admin_facturas') }}" class="active"><i class="fa fa-file-text"></i> Facturas</a></li>
+
+          <li><a href="{{ url_for('logout') }}"><i class="fa fa-sign-out"></i> Salir</a></li>
+
+        </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+</header>
+
+<!-- ===================================================== -->
+<!-- CONTENIDO -->
+<!-- ===================================================== -->
+
+<div class="container-admin wow fadeInUp">
+
+    <h1 class="title">
+        💵 Administración de Facturas
+    </h1>
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID Factura</th>
+
+                    <th>Cliente</th>
+
+                    <th>Total</th>
+
+                    <th>Código Pago</th>
+
+                    <th>Fecha</th>
+
+                    <th>Estado</th>
+
+                    <th>PDF</th>
+
+                    <th>Acción</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for factura in facturas %}
+
+                <tr>
+
+                    <td>
+                        {{ factura.factura_id }}
+                    </td>
+
+                    <td>
+                        {{ factura.nombre_comprador }}
+                    </td>
+
+                    <td>
+                        ${{ factura.total }}
+                    </td>
+
+                    <td>
+                        {{ factura.codigo_pago }}
+                    </td>
+
+                    <td>
+                        {{ factura.fecha }}
+                    </td>
+
+                    <td>
+
+                        {% if factura.estado == 'Pendiente' %}
+
+                            <span class="estado-pendiente">
+                                Pendiente
+                            </span>
+
+                        {% else %}
+
+                            <span class="estado-pagado">
+                                Pagado
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+
+                        <a href="{{ url_for('static', filename='facturas/' + factura.archivo_pdf) }}"
+                           target="_blank"
+                           class="btn-download">
+
+                            <i class="fa fa-download"></i>
+                            Descargar
+
+                        </a>
+
+                    </td>
+
+                    <td>
+
+                        {% if factura.estado == 'Pendiente' %}
+
+                      <a href="{{ url_for('pagar_factura', id=factura.id) }}"
+   class="btn btn-success">
+   Marcar Pagada
+</a>
+
+                        {% else %}
+
+                        <span style="color:#2BB673; font-weight:bold;">
+                            ✔ Confirmado
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+
+<!-- SCRIPTS -->
+
+<script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/wow.min.js') }}"></script>
+
+<script>
+    new WOW().init();
+</script>
+
+</body>
+
+</html>
