@@ -11,10 +11,10 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 
 from scraper import noticias_creg, buscar_en_web
-from openai import OpenAI
+
 from difflib import get_close_matches
 
-from openai import OpenAI
+
 from difflib import get_close_matches
 from sentence_transformers import SentenceTransformer, util
 
